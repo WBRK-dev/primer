@@ -2,3 +2,5 @@
 .envrc
 
 flake.lock
+
+**/*.bin
