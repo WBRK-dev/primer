@@ -4,8 +4,7 @@ My first attempt at creating a simple bootloader and kernel.
 
 Without AI
 
-
-#### Roadmap
+## Roadmap
 - [x] First stage
   - [x] Load second stage into memory
 - [ ] Second stage
