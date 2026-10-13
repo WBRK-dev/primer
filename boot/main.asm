@@ -58,7 +58,7 @@ booted_string db "Loaded first stage...", 0
 second_stage_failed_string db "Failed to load second stage, 0x", 0
 
 
-%include "boot/print.asm"
+%include "boot/lib/print.asm"
 
 
 times 510 - ($ - $$) db 0

@@ -19,6 +19,6 @@ halt:
 
 booted_string db "Loaded second stage...", 0
 
-%include "boot/print.asm"
+%include "boot/lib/print.asm"
 
 times 512 - ($ - $$) db 0
