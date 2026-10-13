@@ -11,6 +11,13 @@ org 0
     mov si, booted_string
     call print_string
 
+    ; Checking if A20 is on
+
+    call check_a20_enabled
+    call print_hex
+
+    ; Loading the kernel into memory
+
     mov ax, 0x2000
     mov es, ax
     mov ah, 0x02
@@ -50,5 +57,6 @@ kernel_failed_string db "Failed to load kernel, 0x", 0
 BOOT_DRIVE db 0
 
 %include "boot/lib/print.asm"
+%include "boot/lib/a20.asm"
 
 times 512 - ($ - $$) db 0
