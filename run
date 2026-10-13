@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+nasm -f bin boot/main.asm -o boot/main.bin
+nasm -f bin boot/stage2.asm -o boot/stage2.bin
+
+cat boot/main.bin boot/stage2.bin > boot/image.bin
+
+qemu-system-i386 -drive format=raw,file=boot/image.bin
