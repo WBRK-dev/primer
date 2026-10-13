@@ -8,7 +8,7 @@ Without AI
 - [x] First stage
   - [x] Load second stage into memory
 - [ ] Second stage
-  - [ ] Load kernel into memory
+  - [x] Load kernel into memory
   - [ ] Enable A20
   - [ ] GDT Table
   - [ ] Set up segment registers and stack
