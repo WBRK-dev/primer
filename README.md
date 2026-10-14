@@ -7,11 +7,11 @@ Without AI
 ## Roadmap
 - [x] First stage
   - [x] Load second stage into memory
-- [ ] Second stage
+- [x] Second stage
   - [x] Load kernel into memory
   - [x] Enable A20
-  - [ ] GDT Table
-  - [ ] Set up segment registers and stack
-  - [ ] Switch to 32 bit mode
+  - [x] GDT
+  - [x] Set up segment registers and stack
+  - [x] Switch to 32 bit mode
 - [ ] Kernel
   - [ ] ...

@@ -21,11 +21,11 @@ org 0x7C00
     call print_string
     call print_nl
 
-    mov ax, 0x1000
+    mov ax, 0x0000
     mov es, ax
     mov ah, 2h
     mov al, 1
-    mov bx, 0
+    mov bx, 0x8000
     mov ch, 0
     mov cl, 2
     mov dh, 0
@@ -35,7 +35,7 @@ org 0x7C00
     jc failed
 
     mov dl, [BOOT_DRIVE]
-    jmp 0x1000:0x0000           ; Far jump to second stage
+    jmp 0x0000:0x8000           ; Far jump to second stage
 
 
 

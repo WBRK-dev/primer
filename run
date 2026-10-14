@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 nasm -f bin boot/main.asm -o boot/main.bin
 nasm -f bin boot/stage2.asm -o boot/stage2.bin
