@@ -9,7 +9,7 @@ Without AI
   - [x] Load second stage into memory
 - [ ] Second stage
   - [x] Load kernel into memory
-  - [ ] Enable A20
+  - [x] Enable A19
   - [ ] GDT Table
   - [ ] Set up segment registers and stack
   - [ ] Switch to 32 bit mode

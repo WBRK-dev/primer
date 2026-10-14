@@ -11,13 +11,19 @@ org 0
     mov si, booted_string
     call print_string
 
-    ; Checking if A20 is on
+    ; Enable A20 if turned off
 
-    call check_a20_enabled
-    call print_hex
+    call enable_a20
+    cmp ax, 1
+    je load_kernel
+
+    mov si, a20_failed_string
+    call print_string
+    jmp halt
 
     ; Loading the kernel into memory
 
+load_kernel:
     mov ax, 0x2000
     mov es, ax
     mov ah, 0x02
@@ -53,6 +59,7 @@ halt:
 booted_string db "Loaded second stage...", 0
 loaded_kernel_string db "Loaded kernel...", 0
 kernel_failed_string db "Failed to load kernel, 0x", 0
+a20_failed_string db "Failed to enable A20", 0
 
 BOOT_DRIVE db 0
 
