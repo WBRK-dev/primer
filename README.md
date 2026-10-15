@@ -17,8 +17,8 @@ Without AI
   - [x] Bare-metal Rust-project (`no_std`, `no_main`, eigen 32-bit target)
   - [x] Linker script: kernel op 0x20000, `_start` als eerste code, platte binary
   - [x] Bootloader laadt de kernel met meerdere sectoren (grootte niet meer hardcoded)
-  - [ ] `_start` die in een halt-lus eindigt (bewijs dat Rust-code draait)
-  - [ ] Panic handler
+  - [x] `_start` die in een halt-lus eindigt (bewijs dat Rust-code draait)
+  - [x] Panic handler
   - [ ] VGA-tekstdriver (karakter, kleur, nieuwe regel, scrollen)
   - [ ] `print!` / `println!` via `core::fmt::Write`
   - [ ] Seriële uitvoer (COM1) voor debuggen
