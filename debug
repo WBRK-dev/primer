@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [ "$1" == "kernel-asm" ]; then
+    objdump -D -b binary -m i386 kernel/target/i686-primer/debug/kernel.bin
+fi
+
+if [ "$1" == "kernel-sectors" ]; then
+    KERNEL_BYTES=$(stat -c %s kernel/target/i686-primer/debug/kernel.bin)
+    echo $(( (KERNEL_BYTES + 511) / 512 ))
+fi

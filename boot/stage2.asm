@@ -27,7 +27,7 @@ load_kernel:
     mov ax, 0x2000
     mov es, ax
     mov ah, 0x02
-    mov al, 1
+    mov al, KERNEL_SECTORS
     mov bx, 0
     mov ch, 0
     mov cl, 3
@@ -54,6 +54,7 @@ to_kernel:
 
 failed:
     push ax
+    call print_nl
     mov si, kernel_failed_string
     call print_string
     pop ax
