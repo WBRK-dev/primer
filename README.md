@@ -14,7 +14,7 @@ Without AI
   - [x] Set up segment registers and stack
   - [x] Switch to 32 bit mode
 - [ ] Kernel
-  - [ ] Bare-metal Rust-project (`no_std`, `no_main`, eigen 32-bit target)
+  - [x] Bare-metal Rust-project (`no_std`, `no_main`, eigen 32-bit target)
   - [ ] Linker script: kernel op 0x20000, `_start` als eerste code, platte binary
   - [ ] Bootloader laadt de kernel met meerdere sectoren (grootte niet meer hardcoded)
   - [ ] `_start` die in een halt-lus eindigt (bewijs dat Rust-code draait)
