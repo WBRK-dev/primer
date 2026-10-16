@@ -1,20 +1,24 @@
 #![no_std]
 #![no_main]
 
+use core::fmt::Write;
+
+use crate::driver::vga::VGA;
+
 mod boot;
+mod driver;
 mod panic_handler;
 
-const PRINT_MESSAGE: &'static [u8; 16] = b"Hello from Rust!";
+const PRINT_MESSAGE: &'static str = "Hello from Rust!";
 
 #[unsafe(no_mangle)]
 pub extern "C" fn kmain() -> ! {
-    for (i, c) in PRINT_MESSAGE.iter().enumerate() {
-        let vga_value: u16 = 0x0F00 | *c as u16;
-        let address = (0xB8000 + i * 2) as *mut u16;
-        unsafe {
-            core::ptr::write_volatile(address, vga_value);
-        }
+    let mut vga = VGA::new();
+
+    for i in 0..28 {
+        let _ = write!(vga, "{} {}\n", PRINT_MESSAGE, i);
     }
+    vga.write_string("> \nTest");
 
     loop {}
 }
