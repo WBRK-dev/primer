@@ -3,12 +3,16 @@ set -e
 
 (cd kernel && cargo build)
 objcopy -O binary kernel/target/i686-primer/debug/kernel kernel/target/i686-primer/debug/kernel.bin
+
 KERNEL_BYTES=$(stat -c %s kernel/target/i686-primer/debug/kernel.bin)
 KERNEL_SECTORS=$(( (KERNEL_BYTES + 511) / 512 ))
 truncate -s $(($KERNEL_SECTORS * 512)) kernel/target/i686-primer/debug/kernel.bin
 
+KERNEL_LOAD_LOOPS=$(( ( KERNEL_SECTORS + 32 - 1 ) / 32 ))
+LAST_KERNEL_LOAD_LOOP_SECTORS=$(( KERNEL_SECTORS % 32 ))
+
 nasm -f bin boot/main.asm -o boot/main.bin
-nasm -f bin boot/stage2.asm -o boot/stage2.bin -DKERNEL_SECTORS=$KERNEL_SECTORS
+nasm -f bin boot/stage2.asm -o boot/stage2.bin -DKERNEL_SECTORS=$KERNEL_SECTORS -DKERNEL_LOAD_LOOPS=$KERNEL_LOAD_LOOPS -DLAST_KERNEL_LOAD_LOOP_SECTORS=$LAST_KERNEL_LOAD_LOOP_SECTORS
 
 cat boot/main.bin boot/stage2.bin kernel/target/i686-primer/debug/kernel.bin > boot/image.bin
 

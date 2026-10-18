@@ -15,31 +15,53 @@ org 0x8000
 
     call enable_a20
     cmp ax, 1
-    je load_kernel
+    je .load_kernel_setup
 
     mov si, a20_failed_string
     call print_string
     jmp halt
 
+.load_kernel_setup:
+    mov cx, KERNEL_LOAD_LOOPS
+
     ; Loading the kernel into memory
 
 load_kernel:
-    mov ax, 0x2000
-    mov es, ax
-    mov ah, 0x02
-    mov al, KERNEL_SECTORS
-    mov bx, 0
-    mov ch, 0
-    mov cl, 3
-    mov dh, 0
+    mov ax, cx
+    call print_hex
+    dec cx
+
+    cmp cx, 0
+    jne .continue
+
+    mov word [DAP_SECTORS], LAST_KERNEL_LOAD_LOOP_SECTORS
+
+.continue:
+    mov si, DAP
     mov dl, [BOOT_DRIVE]
-    int 0x13                    ; Load kernel into memory
+    mov ah, 0x42
+
+    int 0x13                         ; Load kernel into memory
 
     jc failed
 
+    mov eax, [DAP_SECTORS]
+    add dword [DAP_LBA], eax
+    adc dword [DAP_LBA + 4], 0
+    add word [DAP_SEGMENT], 0x400
+
+    push cx
     mov si, loaded_kernel_string
     call print_nl
     call print_string
+    pop cx
+    push cx
+    mov ax, cx
+    call print_hex
+    pop cx
+
+    cmp cx, 0
+    jne load_kernel
 
     lgdt [gdt_descriptor]            ; Load entries into GDT
 
@@ -70,6 +92,12 @@ kernel_failed_string db "Failed to load kernel, 0x", 0
 a20_failed_string db "Failed to enable A20", 0
 
 BOOT_DRIVE db 0
+
+DAP         dw 0x0010
+DAP_SECTORS dw 0x0020
+DAP_OFFSET  dw 0x0000
+DAP_SEGMENT dw 0x2000
+DAP_LBA     dq 2
 
 gdt_descriptor:
     dw gdt_end - gdt_start - 1
