@@ -31,7 +31,7 @@ pub struct VGA {
 }
 
 impl VGA {
-    pub fn new() -> Self {
+    pub const fn new() -> Self {
         Self {
             foreground: Color::LightGray,
             background: Color::Black,
@@ -78,6 +78,7 @@ impl VGA {
         }
     }
 
+    // SAFETY: Early return on invalid arguments
     fn write_cell(&self, c: &u8, x: u8, y: u8) {
         if x >= X_MAX || y >= Y_MAX {
             return;
@@ -90,6 +91,7 @@ impl VGA {
         }
     }
 
+    // SAFETY: Early return on invalid arguments
     fn shift_up(&mut self, amount: Option<u8>) {
         let amount = amount.unwrap_or(1);
 

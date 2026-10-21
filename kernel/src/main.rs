@@ -1,24 +1,27 @@
 #![no_std]
 #![no_main]
 
-use core::fmt::Write;
-
 use crate::driver::vga::VGA;
+use crate::sync::spinlock::Spinlock;
 
 mod boot;
+mod sync;
+mod stdio;
 mod driver;
 mod panic_handler;
 
-const PRINT_MESSAGE: &'static str = "Hello from Rust!";
+static WRITER: Spinlock<VGA> = Spinlock::new(VGA::new());
 
 #[unsafe(no_mangle)]
 pub extern "C" fn kmain() -> ! {
-    let mut vga = VGA::new();
-
-    for i in 0..28 {
-        let _ = write!(vga, "{} {}\n", PRINT_MESSAGE, i);
+    {
+        let vga = WRITER.lock();
+        vga.clear_screen();
     }
-    vga.write_string("> \nTest");
+
+    println!("[   OK   ] Started kernel");
+    println!("[   OK   ] Started stdio");
+    println!("[   OK   ] Started serial");
 
     loop {}
 }

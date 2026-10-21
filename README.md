@@ -19,8 +19,8 @@ Without AI
   - [x] Bootloader laadt de kernel met meerdere sectoren (grootte niet meer hardcoded)
   - [x] `_start` die in een halt-lus eindigt (bewijs dat Rust-code draait)
   - [x] Panic handler
-  - [ ] VGA-tekstdriver (karakter, kleur, nieuwe regel, scrollen)
-  - [ ] `print!` / `println!` via `core::fmt::Write`
+  - [x] VGA-tekstdriver (karakter, kleur, nieuwe regel, scrollen)
+  - [x] `print!` / `println!` via `core::fmt::Write`
   - [ ] Seriële uitvoer (COM1) voor debuggen
   - [ ] IDT en exception handlers (geen triple fault bij een fout)
   - [ ] PIC herprogrammeren en timer-interrupt
