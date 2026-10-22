@@ -8,9 +8,9 @@ global_asm!("
 _start:
     mov esp, 0x20000
 
-    mov ecx, [__bss_start]
+    mov ecx, __bss_start
 .Lset_bss_zero:
-    cmp ecx, [__bss_end]
+    cmp ecx, __bss_end
     je .Lcontinue
 
     mov byte ptr [ecx], 0
